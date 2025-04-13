@@ -1,17 +1,6 @@
 #include "../includes/philo.h"
 
-int	is_degit(char *s)
-{
-	while (*s)
-	{
-		if (*s < '0' || *s > '9')
-			return (0);
-		s++;
-	}
-	return (1);
-}
-
-int	is_valid_input(int c, char **v)
+void	is_valid_input(int c, char **v)
 {
 	int	i;
 	long	nb;
