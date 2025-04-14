@@ -7,6 +7,17 @@
 #include <pthread.h>
 #include <limits.h>
 
+typedef	struct	s_philo
+{
+	pthread_t	thread; // philosopher
+	pthread_mutext_t	meal_time_lock; // protecting last meal 
+	int	id; // philo id 
+	int	time_ate; // number of times the philosopher has eaten.
+	int	fork[2]; // indices of two forks
+	time_t	last_meal; // time of the philosopher's last meal.
+	t_data	*data; //pointer to data struct.
+}	t_philo;
+
 typedef struct s_data
 {
 	pthread_t	monitor; // thread monitoring philosopher deaths.
@@ -23,17 +34,6 @@ typedef struct s_data
 	t_philo	**philos; // list of philosopher with his components.
 }	t_data;
 
-typedef	struct	s_philo
-{
-	pthread_t	thread; // philosopher
-	pthread_mutext_t	meal_time_lock; // protecting last meal 
-	int	id; // philo id 
-	int	time_ate; // number of times the philosopher has eaten.
-	int	fork[2]; // indices of two forks
-	time_t	last_meal; // time of the philosopher's last meal.
-	t_data	*data; //pointer to data struct.
-}	t_philo;
-
 #define INPUT_MSG "Valid input:\n\
 	    number of philosophers\n\
 	    time_to_die\n\
@@ -48,4 +48,5 @@ typedef	struct	s_philo
 void	message(char *msg);
 int     ft_atoi(char *s);
 void	is_valid_input(int c, char **v);
+t_data  *init(int c, char **v);
 #endif 
