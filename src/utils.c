@@ -1,5 +1,15 @@
 #include "../includes/philo.h"
 
+int	ft_strlen(char *s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i])
+		i++;
+	return (i);
+}
+
 void	is_valid_input(int c, char **v)
 {
 	int	i;
@@ -17,6 +27,6 @@ void	is_valid_input(int c, char **v)
 
 void	message(char *msg)
 {
-	printf(msg);
+	write(2, msg, ft_strlen(msg));
 	exit(EXIT_FAILURE);
 }

@@ -18,7 +18,6 @@ void	init_mutexes(t_data *data)
 		return ; // free() here
 	if (pthread_mutex_init(&data->write_lock, NULL))
 		return ; // free() here
-
 }
 
 void	take_forks(t_philo *philo)
@@ -45,7 +44,8 @@ t_philo	**init_philos(t_data *data)
 	i = 0;
 	while (i < data->num_of_philos)
 	{
-		if (data->philos[i] = malloc(sizeof(t_philo)))
+		philos[i] = malloc(sizeof(t_philo));
+		if (!philos[i])
 			return (NULL); // free() here
 		if (pthread_mutex_init(&philos[i]->meal_time_lock, NULL))
 			return (NULL); // free() here

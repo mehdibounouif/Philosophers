@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mbounoui <mbounoui@student.1337.ma>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/16 08:49:21 by mbounoui          #+#    #+#             */
+/*   Updated: 2025/04/16 09:14:14 by mbounoui         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PHILO_H
 # define PHILO_H
 
@@ -6,6 +18,7 @@
 #include <stdlib.h>
 #include <pthread.h>
 #include <limits.h>
+#include <sys/time.h>
 
 typedef	struct	s_philo t_philo;
 
@@ -19,10 +32,11 @@ typedef struct s_data
 	time_t	time_to_die; // time of philosopher can stay without eating.
 	time_t	time_to_eat; // time of philosopher while eating.
 	time_t	time_to_sleep; // time of philosopher while sleeping.
-	int	num_of_meals; // number of meal any philosopher must eat (minimum).
-	int	sim_stop; // check if philo is death.
-	int	num_of_philos; // number of philosophers.
-	t_philo	**philos; // list of philosopher with his components.
+	int	num_of_meals; // number of meal any philosopher must eat (minimum). int	sim_stop; // check if philo is death.
+	int	num_of_philos; // number of philosophers. t_philo	**philos; // list of philosopher with his components.
+	int	sim_stop;
+	t_philo ** philos;
+	//
 }	t_data;
 
 typedef	struct	s_philo
@@ -51,4 +65,12 @@ void	message(char *msg);
 int     ft_atoi(char *s);
 void	is_valid_input(int c, char **v);
 t_data  *init(int c, char **v, t_data *data);
+int	ft_strlen(char *s);
+void	free_data(t_data *data);
+void	print_error(t_data *data, char *str);
+int	has_simulation_stopped(t_data *data);
+time_t	current_time(void);
+void	*monitor_routine(void *args);
+void	*philos_routine(void *args);
+void	start_simulation(t_data *data);
 #endif 

@@ -1,6 +1,6 @@
 NAME = philo
 CC = cc
-FLAGS = -Wall -Wextra -Werror -pthread
+FLAGS = -Wall -Wextra -Werror -g -pthread
 RM = rm -rf
 SRC_DIR = ./src
 SRC_FILES = main.c\
@@ -15,11 +15,11 @@ OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)
 
-%.c: %.o
-	$(CC) $(FLAGS) -o $@ -c $<
-
 $(NAME): $(OBJS)
 	$(CC) $(FLAGS) $(OBJS) -o $(NAME)
+
+%.o: %.c
+	$(CC) $(FLAGS) -o $@ -c $<
 
 clean:
 	$(RM) $(OBJS)
