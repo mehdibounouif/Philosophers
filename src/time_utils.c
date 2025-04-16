@@ -6,7 +6,7 @@
 /*   By: mbounoui <mbounoui@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 07:45:14 by mbounoui          #+#    #+#             */
-/*   Updated: 2025/04/16 08:47:49 by mbounoui         ###   ########.fr       */
+/*   Updated: 2025/04/16 09:38:40 by mbounoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
  
@@ -38,5 +38,5 @@ void	philo_sleep(t_data *data, time_t time)
 void	sim_start_delay(time_t start_time)
 {
 	while (current_time() < start_time)
-		continue ;
+		continue;
 }

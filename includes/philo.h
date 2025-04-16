@@ -6,7 +6,7 @@
 /*   By: mbounoui <mbounoui@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 08:49:21 by mbounoui          #+#    #+#             */
-/*   Updated: 2025/04/16 09:14:14 by mbounoui         ###   ########.fr       */
+/*   Updated: 2025/04/16 10:10:51 by mbounoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,5 +72,10 @@ int	has_simulation_stopped(t_data *data);
 time_t	current_time(void);
 void	*monitor_routine(void *args);
 void	*philos_routine(void *args);
+void	single_routine(t_philo *philo);
 void	start_simulation(t_data *data);
+void	philo_sleep(t_data *data, time_t time);
+void	sleep_mode(t_philo *philo);
+void	think_mode(t_philo *philo, int	flag);
+void	display(t_philo *philo, char *status);
 #endif 
