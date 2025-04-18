@@ -12,6 +12,7 @@ SRC_FILES = main.c\
 		output_and_errors.c\
 		time_utils.c\
 		start_sim.c\
+		stop_sim.c\
 
 
 

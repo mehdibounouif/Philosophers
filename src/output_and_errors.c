@@ -6,7 +6,7 @@
 /*   By: mbounoui <mbounoui@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 10:16:47 by mbounoui          #+#    #+#             */
-/*   Updated: 2025/04/16 10:46:19 by mbounoui         ###   ########.fr       */
+/*   Updated: 2025/04/18 10:18:06 by mbounoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	is_valid_input(int c, char **v)
 	while (i < c)
 	{
 		nb = ft_atoi(v[i]);
-		if (nb <= 0 || nb > INT_MAX)
+		if ((nb <= 0 || nb > INT_MAX) && i != 5)
 			message(RANGE_MSG);
 		i++;
 	}

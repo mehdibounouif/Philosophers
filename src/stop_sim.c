@@ -1,39 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   stop_sim.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbounoui <mbounoui@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/16 08:06:30 by mbounoui          #+#    #+#             */
-/*   Updated: 2025/04/18 10:26:45 by mbounoui         ###   ########.fr       */
+/*   Created: 2025/04/18 10:20:02 by mbounoui          #+#    #+#             */
+/*   Updated: 2025/04/18 10:25:21 by mbounoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-int	has_simulation_stopped(t_data *data)
+void	stop_sim(t_data *data)
 {
-	int	r;
+	int	i;
 
-	r = 0;
-	pthread_mutex_lock(&data->sim_stop_lock);
-	if (data->sim_stop)
-		r = 1;
-
-	pthread_mutex_unlock(&data->sim_stop_lock);
-	return (r);
-}
-
-int	main(int c, char **v)
-{
-	t_data	*data;
-	data = NULL;
-	if (c - 1 < 4 || c - 1 > 5)
-		message(INPUT_MSG);
-	is_valid_input(c, v);
-	data = init(c, v, data);
-	start_simulation(data);
-	stop_sim(data);
-	exit(EXIT_SUCCESS);
+	i = 0;
+	while (i < data->num_of_philos)
+	{
+		pthread_join(data->philos[i]->thread, NULL);
+		i++;
+	}
+	if(data->num_of_philos > 1)
+		pthread_join(data->monitor, NULL);
 }
