@@ -17,5 +17,6 @@ void	*monitor_routine(void *args)
 	t_data	*data;
 
 	data = (t_data *)args;
+	printf("%d\n", data->num_of_philos);
 	return (NULL);
 }

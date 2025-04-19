@@ -14,15 +14,14 @@
 
 int	has_simulation_stopped(t_data *data)
 {
-	int	r;
-
-	r = 0;
 	pthread_mutex_lock(&data->sim_stop_lock);
 	if (data->sim_stop)
-		r = 1;
-
+	{
+		pthread_mutex_unlock(&data->sim_stop_lock);
+		return(1);
+	}
 	pthread_mutex_unlock(&data->sim_stop_lock);
-	return (r);
+	return (0);
 }
 
 int	main(int c, char **v)
