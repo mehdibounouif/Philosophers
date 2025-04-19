@@ -14,7 +14,7 @@
 void	single_routine(t_philo *philo)
 {
 	display(philo, "has taken a fork");
-	philo_sleep(philo->data, philo->data->time_to_die);
+	ft_sleep(philo->data, philo->data->time_to_die);
 	display(philo, "died");
 }
 
@@ -28,17 +28,17 @@ void	*philos_routine(void *args)
 	pthread_mutex_lock(&philo->meal_time_lock);
 	philo->last_meal = philo->data->start;
 	pthread_mutex_unlock(&philo->meal_time_lock);
-	sim_start_delay(philo->data->start);
+	ft_wait(philo->data->start);
 	if (philo->data->time_to_die == 0)
 		return (NULL);
 	if (philo->data->num_of_philos == 1)
 		return (single_routine(philo), NULL);
 	else if (philo->id % 2)
 		think_mode(philo, 1);
-	while (!has_simulation_stopped(philo->data))
+	while (is_stoped(philo->data) == 0)
 	{
 		// eat and sleep are same.
-		sleep_mode(philo);
+		eat_mode(philo);
 		think_mode(philo, 0);
 	}
 	return (NULL);

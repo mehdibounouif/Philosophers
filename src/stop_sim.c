@@ -12,7 +12,7 @@
 
 #include "../includes/philo.h"
 
-void	stop_sim(t_data *data)
+void	stop_simulation(t_data *data)
 {
 	int	i;
 
@@ -24,4 +24,5 @@ void	stop_sim(t_data *data)
 	}
 	if(data->num_of_philos > 1)
 		pthread_join(data->monitor, NULL);
+	free_data(data);
 }

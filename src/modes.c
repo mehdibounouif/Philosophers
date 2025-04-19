@@ -12,19 +12,27 @@
 
 #include "../includes/philo.h"
 
-void	sleep_mode(t_philo *philo)
+void	eat_mode(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->data->forks_locks[philo->fork[0]]);
 	display(philo, "has taken a fork");
+	pthread_mutex_lock(&philo->data->forks_locks[philo->fork[1]]);
 	display(philo, "has taken a fork");
 	display(philo, "is eating");
+	pthread_mutex_lock(&philo->meal_time_lock);
 	philo->last_meal = current_time();
-	philo_sleep(philo->data, philo->data->time_to_eat);
-	if (!has_simulation_stopped(philo->data))
+	pthread_mutex_unlock(&philo->meal_time_lock);
+	ft_sleep(philo->data, philo->data->time_to_eat);
+	if (is_stoped(philo->data) == 0)
+  {
+    pthread_mutex_lock(&philo->meal_time_lock);
 		philo->time_ate ++;
+    pthread_mutex_unlock(&philo->meal_time_lock);
+  }
 	display(philo, "is sleeping");
 	pthread_mutex_unlock(&philo->data->forks_locks[philo->fork[0]]);
-	philo_sleep(philo->data, philo->data->time_to_sleep);
+	pthread_mutex_unlock(&philo->data->forks_locks[philo->fork[1]]);
+	ft_sleep(philo->data, philo->data->time_to_sleep);
 }
 
 void	think_mode(t_philo *philo, int	flag)
@@ -38,9 +46,11 @@ void	think_mode(t_philo *philo, int	flag)
 	pthread_mutex_lock(&philo->meal_time_lock);
 	if (thinking_time < 0)
 		thinking_time = 0;
-	if (thinking_time < 0 && flag == 1)
+	if (thinking_time == 0 && flag == 1)
 		thinking_time = 1;
 	if (thinking_time > 600)
 		thinking_time = 200;
-	philo_sleep(philo->data, thinking_time);
+	if (flag == 0)
+		display(philo, "is thinking");
+  ft_sleep(philo->data, thinking_time);
 }

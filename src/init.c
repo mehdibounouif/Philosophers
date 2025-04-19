@@ -58,7 +58,7 @@ t_philo	**init_philos(t_data *data)
 	return (philos);
 }
 
-t_data	*init(int c, char **v, t_data *data)
+t_data	*ft_init(int c, char **v, t_data *data)
 {
 	data = malloc(sizeof(t_data));
 	if (!data)
@@ -74,6 +74,5 @@ t_data	*init(int c, char **v, t_data *data)
 		data->num_of_meals = -1;
 	data->philos = init_philos(data);
 	init_mutexes(data);
-	data->sim_stop = 0;
 	return (data);
 }

@@ -12,10 +12,10 @@
 
 #include "../includes/philo.h"
 
-int	has_simulation_stopped(t_data *data)
+int	is_stoped(t_data *data)
 {
 	pthread_mutex_lock(&data->sim_stop_lock);
-	if (data->sim_stop)
+	if (data->sim_stop == 1)
 	{
 		pthread_mutex_unlock(&data->sim_stop_lock);
 		return(1);
@@ -31,8 +31,10 @@ int	main(int c, char **v)
 	if (c - 1 < 4 || c - 1 > 5)
 		message(INPUT_MSG);
 	is_valid_input(c, v);
-	data = init(c, v, data);
+	data = ft_init(c, v, data);
+  if (!data)
+    exit(EXIT_FAILURE);
 	start_simulation(data);
-	stop_sim(data);
+	stop_simulation(data);
 	exit(EXIT_SUCCESS);
 }

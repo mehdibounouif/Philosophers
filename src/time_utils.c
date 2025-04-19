@@ -22,20 +22,20 @@ time_t	current_time(void)
 	return (current);
 }
 
-void	philo_sleep(t_data *data, time_t time)
+void	ft_sleep(t_data *data, time_t time)
 {
-	time_t	wake_up;
+	time_t	its_time;
 
-	wake_up = current_time() + time;
-	while (current_time() < wake_up)
+	its_time = current_time() + time;
+	while (current_time() < its_time)
 	{
-		if (has_simulation_stopped(data))
+		if (is_stoped(data))
 			break;
 		usleep(100);
 	}
 }
 
-void	sim_start_delay(time_t start_time)
+void	ft_wait(time_t start_time)
 {
 	while (current_time() < start_time)
 		continue;

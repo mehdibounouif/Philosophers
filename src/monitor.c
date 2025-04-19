@@ -14,7 +14,7 @@
 
 int	kill_philo(t_philo *philo)
 {
-	if ((current_time() - philo->last_meal) > philo->data->time_to_die)
+	if ((current_time() - philo->last_meal) >= philo->data->time_to_die)
 	{
 		pthread_mutex_lock(&philo->data->sim_stop_lock);
 		philo->data->sim_stop = 1;
@@ -44,7 +44,7 @@ int	check_philo(t_data *data)
 		pthread_mutex_unlock(&data->philos[i]->meal_time_lock);
 		i++;
 	}
-	if (eat_enough == 1)
+	if (data->num_of_meals != -1 && eat_enough == 1)
 	{
 		pthread_mutex_lock(&data->sim_stop_lock);
 		data->sim_stop = 1;
@@ -59,12 +59,13 @@ void	*monitor_routine(void *args)
 	t_data	*data;
 
 	data = (t_data *)args;
-	sim_start_delay(data->start);
+  data->sim_stop = 0;
+	ft_wait(data->start);
 	while (1)
 	{
-		if (check_philo(data))
+		if (check_philo(data) == 1)
 			return (NULL);
-		usleep(1000);
+		usleep(100);
 	}
 	return (NULL);
 }

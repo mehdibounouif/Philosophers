@@ -64,20 +64,20 @@ typedef	struct	s_philo
 void	message(char *msg);
 int     ft_atoi(char *s);
 void	is_valid_input(int c, char **v);
-t_data  *init(int c, char **v, t_data *data);
+t_data  *ft_init(int c, char **v, t_data *data);
 int	ft_strlen(char *s);
 void	free_data(t_data *data);
 void	print_error(t_data *data, char *str);
-int	has_simulation_stopped(t_data *data);
+int   is_stoped(t_data *data);
 time_t	current_time(void);
 void	*monitor_routine(void *args);
 void	*philos_routine(void *args);
 void	single_routine(t_philo *philo);
 void	start_simulation(t_data *data);
-void	philo_sleep(t_data *data, time_t time);
-void	sleep_mode(t_philo *philo);
+void	stop_simulation(t_data *data);
+void	ft_sleep(t_data *data, time_t time);
+void	eat_mode(t_philo *philo);
 void	think_mode(t_philo *philo, int	flag);
 void	display(t_philo *philo, char *status);
-void	sim_start_delay(time_t start_time);
-void	stop_sim(t_data *data);
+void	ft_wait(time_t start_time);
 #endif 
