@@ -1,0 +1,98 @@
+  Id   Target Id                                Frame 
+  1    Thread 0x7ffff7da2740 (LWP 3473) "philo" start_simulation (
+    data=0x55555555a2a0) at src/start_sim.c:61
+  2    Thread 0x7ffff7da1700 (LWP 3476) "philo" 0x00007ffff7e8223f in __GI___clock_nanosleep (clock_id=clock_id@entry=0, flags=flags@entry=0, 
+    req=req@entry=0x7ffff7da0e50, rem=rem@entry=0x0)
+    at ../sysdeps/unix/sysv/linux/clock_nanosleep.c:78
+  3    Thread 0x7ffff75a0700 (LWP 3477) "philo" 0x00007ffff7e8223f in __GI___clock_nanosleep (clock_id=clock_id@entry=0, flags=flags@entry=0, 
+    req=req@entry=0x7ffff759fe50, rem=rem@entry=0x0)
+    at ../sysdeps/unix/sysv/linux/clock_nanosleep.c:78
+* 4    Thread 0x7ffff6d9f700 (LWP 3478) "philo" __lll_lock_wait (
+    futex=futex@entry=0x55555555a560, private=0) at lowlevellock.c:52
+Breakpoint 3 at 0x555555555365: file src/main.c, line 28.
+Starting program: /mnt/c/Users/user/Desktop/phi/philo 3 100 50 50
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/lib/x86_64-linux-gnu/libthread_db.so.1".
+
+Breakpoint 3, main (c=21845, v=0x0) at src/main.c:28
+
+Deleted breakpoint 3 Catchpoint 4 (syscall 'clone' [56])
+
+Catchpoint 4 (call to syscall clone), clone ()
+    at ../sysdeps/unix/sysv/linux/x86_64/clone.S:78
+../sysdeps/unix/sysv/linux/x86_64/clone.S: No such file or directory.
+[New Thread 0x7ffff7da1700 (LWP 3491)]
+../sysdeps/unix/sysv/linux/x86_64/clone.S: No such file or directory.
+../sysdeps/unix/sysv/linux/x86_64/clone.S: No such file or directory.
+clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:82
+../sysdeps/unix/sysv/linux/x86_64/clone.S: No such file or directory.
+create_thread (pd=pd@entry=0x7ffff7da1700, attr=attr@entry=0x7fffffffdf00, 
+    stopped_start=stopped_start@entry=0x7fffffffdefe, 
+    stackaddr=stackaddr@entry=0x7ffff7da0fc0, 
+    thread_ran=thread_ran@entry=0x7fffffffdeff)
+    at ../sysdeps/unix/sysv/linux/createthread.c:108
+../sysdeps/unix/sysv/linux/createthread.c: No such file or directory.
+../sysdeps/unix/sysv/linux/createthread.c: No such file or directory.
+../sysdeps/unix/sysv/linux/createthread.c: No such file or directory.
+../sysdeps/unix/sysv/linux/createthread.c: No such file or directory.
+__pthread_create_2_1 (newthread=<optimized out>, attr=<optimized out>, 
+    start_routine=<optimized out>, arg=<optimized out>)
+    at pthread_create.c:820
+pthread_create.c: No such file or directory.
+Type commands for definition of "hook-stop".
+End with a line saying just "end".
+Thread:[Current thread is 1 (Thread 0x7ffff7da2740 (LWP 3548))]
+Thread:[Current thread is 1 (Thread 0x7ffff7da2740 (LWP 3548))]
+Thread:[Current thread is 1 (Thread 0x7ffff7da2740 (LWP 3548))]
+Thread:[Current thread is 1 (Thread 0x7ffff7da2740 (LWP 3548))]
+Thread:[Current thread is 1 (Thread 0x7ffff7da2740 (LWP 3548))]
+Thread:[Current thread is 1 (Thread 0x7ffff7da2740 (LWP 3548))]
+start_simulation (data=0x55555555a2a0) at src/start_sim.c:48
+Thread:[Current thread is 1 (Thread 0x7ffff7da2740 (LWP 3548))]
+Thread:[Current thread is 1 (Thread 0x7ffff7da2740 (LWP 3548))]
+Thread:[Current thread is 1 (Thread 0x7ffff7da2740 (LWP 3548))]
+Thread:[Current thread is 1 (Thread 0x7ffff7da2740 (LWP 3548))]
+Thread:[Current thread is 1 (Thread 0x7ffff7da2740 (LWP 3548))]
+Thread:[Current thread is 1 (Thread 0x7ffff7da2740 (LWP 3548))]
+
+Catchpoint 2 (call to syscall clone), clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:78
+../sysdeps/unix/sysv/linux/x86_64/clone.S: No such file or directory.
+[New Thread 0x7ffff7da1700 (LWP 3554)]
+Thread:[Current thread is 1 (Thread 0x7ffff7da2740 (LWP 3548))]
+../sysdeps/unix/sysv/linux/x86_64/clone.S: No such file or directory.
+Thread:[Current thread is 1 (Thread 0x7ffff7da2740 (LWP 3548))]
+../sysdeps/unix/sysv/linux/x86_64/clone.S: No such file or directory.
+Thread:[Current thread is 1 (Thread 0x7ffff7da2740 (LWP 3548))]
+clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:82
+../sysdeps/unix/sysv/linux/x86_64/clone.S: No such file or directory.
+Thread:[Current thread is 1 (Thread 0x7ffff7da2740 (LWP 3548))]
+create_thread (pd=pd@entry=0x7ffff7da1700, attr=attr@entry=0x7fffffffdf00, stopped_start=stopped_start@entry=0x7fffffffdefe, stackaddr=stackaddr@entry=0x7ffff7da0fc0, thread_ran=thread_ran@entry=0x7fffffffdeff) at ../sysdeps/unix/sysv/linux/createthread.c:108
+../sysdeps/unix/sysv/linux/createthread.c: No such file or directory.
+Thread:[Current thread is 1 (Thread 0x7ffff7da2740 (LWP 3548))]
+../sysdeps/unix/sysv/linux/createthread.c: No such file or directory.
+Thread:[Current thread is 1 (Thread 0x7ffff7da2740 (LWP 3548))]
+../sysdeps/unix/sysv/linux/createthread.c: No such file or directory.
+[Thread 0x7ffff7da1700 (LWP 3554) exited]
+Thread:[Current thread is 1 (Thread 0x7ffff7da2740 (LWP 3548))]
+../sysdeps/unix/sysv/linux/createthread.c: No such file or directory.
+Thread:[Current thread is 1 (Thread 0x7ffff7da2740 (LWP 3548))]
+__pthread_create_2_1 (newthread=<optimized out>, attr=<optimized out>, start_routine=<optimized out>, arg=<optimized out>) at pthread_create.c:820
+pthread_create.c: No such file or directory.
+Thread:[Current thread is 1 (Thread 0x7ffff7da2740 (LWP 3548))]
+pthread_create.c: No such file or directory.
+Thread:[Current thread is 1 (Thread 0x7ffff7da2740 (LWP 3548))]
+pthread_create.c: No such file or directory.
+Thread:[Current thread is 1 (Thread 0x7ffff7da2740 (LWP 3548))]
+pthread_create.c: No such file or directory.
+Thread:[Current thread is 1 (Thread 0x7ffff7da2740 (LWP 3548))]
+start_simulation (data=0x55555555a2a0) at src/start_sim.c:55
+Thread:[Current thread is 1 (Thread 0x7ffff7da2740 (LWP 3548))]
+Thread:[Current thread is 1 (Thread 0x7ffff7da2740 (LWP 3548))]
+Thread:[Current thread is 1 (Thread 0x7ffff7da2740 (LWP 3548))]
+Thread:[Current thread is 1 (Thread 0x7ffff7da2740 (LWP 3548))]
+Thread:[Current thread is 1 (Thread 0x7ffff7da2740 (LWP 3548))]
+main (c=5, v=0x7fffffffe0c8) at src/main.c:36
+Thread:[Current thread is 1 (Thread 0x7ffff7da2740 (LWP 3548))]
+Undefined command: "ls".  Try "help".
+Type commands for definition of "hook-stop".
+End with a line saying just "end".

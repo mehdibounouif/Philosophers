@@ -12,7 +12,6 @@
 
 #include "../includes/philo.h"
 
-
 void	sleep_mode(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->data->forks_locks[philo->fork[0]]);
@@ -26,7 +25,6 @@ void	sleep_mode(t_philo *philo)
 	display(philo, "is sleeping");
 	pthread_mutex_unlock(&philo->data->forks_locks[philo->fork[0]]);
 	philo_sleep(philo->data, philo->data->time_to_sleep);
-
 }
 
 void	think_mode(t_philo *philo, int	flag)
