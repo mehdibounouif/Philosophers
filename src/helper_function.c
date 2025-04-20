@@ -6,11 +6,18 @@
 /*   By: mbounoui <mbounoui@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 10:29:22 by mbounoui          #+#    #+#             */
-/*   Updated: 2025/04/16 10:29:23 by mbounoui         ###   ########.fr       */
+/*   Updated: 2025/04/20 15:15:59 by mbounoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
+
+void	set_sim_stop_flag(t_data *data,  int status)
+{
+	pthread_mutex_lock(&data->sim_stop_lock);
+	data->sim_stop = status;
+	pthread_mutex_unlock(&data->sim_stop_lock);
+}
 
 int	ft_atoi(char *s)
 {
@@ -39,3 +46,5 @@ int	ft_atoi(char *s)
 		message(NUMBER_MSG);
 	return (res * sign);
 }
+
+

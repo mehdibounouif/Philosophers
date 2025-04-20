@@ -6,7 +6,7 @@
 /*   By: mbounoui <mbounoui@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 08:08:47 by mbounoui          #+#    #+#             */
-/*   Updated: 2025/04/18 10:14:07 by mbounoui         ###   ########.fr       */
+/*   Updated: 2025/04/20 15:23:23 by mbounoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/philo.h"
@@ -21,7 +21,7 @@ void	single_routine(t_philo *philo)
 void	*philos_routine(void *args)
 {
 	t_philo	*philo;
-
+	
 	philo = (t_philo *)args;
 	if (philo->data->num_of_meals == 0)
 		print_error(philo->data, "No meals to eat!\n");

@@ -6,7 +6,7 @@
 /*   By: mbounoui <mbounoui@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 08:49:21 by mbounoui          #+#    #+#             */
-/*   Updated: 2025/04/18 10:27:08 by mbounoui         ###   ########.fr       */
+/*   Updated: 2025/04/20 15:16:17 by mbounoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,4 +80,5 @@ void	eat_mode(t_philo *philo);
 void	think_mode(t_philo *philo, int	flag);
 void	display(t_philo *philo, char *status);
 void	ft_wait(time_t start_time);
+void	set_sim_stop_flag(t_data *data,  int status);
 #endif 

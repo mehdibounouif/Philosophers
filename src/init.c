@@ -67,12 +67,12 @@ t_data	*ft_init(int c, char **v, t_data *data)
 	data->time_to_die = atoi(v[2]);
 	data->time_to_eat = atoi(v[3]);
 	data->time_to_sleep = atoi(v[4]);
-	data->sim_stop = 0;
 	if (c == 6)
 		data->num_of_meals = atoi(v[5]);
 	else
 		data->num_of_meals = -1;
 	data->philos = init_philos(data);
 	init_mutexes(data);
+	data->sim_stop = 0;
 	return (data);
 }

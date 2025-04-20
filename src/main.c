@@ -6,7 +6,7 @@
 /*   By: mbounoui <mbounoui@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 08:06:30 by mbounoui          #+#    #+#             */
-/*   Updated: 2025/04/18 10:26:45 by mbounoui         ###   ########.fr       */
+/*   Updated: 2025/04/20 15:26:07 by mbounoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 int	is_stoped(t_data *data)
 {
+	int	r;
+
+	r = 0;
 	pthread_mutex_lock(&data->sim_stop_lock);
 	if (data->sim_stop == 1)
-	{
-		pthread_mutex_unlock(&data->sim_stop_lock);
-		return(1);
-	}
+		r = 1;
 	pthread_mutex_unlock(&data->sim_stop_lock);
-	return (0);
+	return (r);
 }
 
 int	main(int c, char **v)
@@ -32,8 +32,8 @@ int	main(int c, char **v)
 		message(INPUT_MSG);
 	is_valid_input(c, v);
 	data = ft_init(c, v, data);
-  if (!data)
-    exit(EXIT_FAILURE);
+	if (!data)
+	    exit(EXIT_FAILURE);
 	start_simulation(data);
 	stop_simulation(data);
 	exit(EXIT_SUCCESS);
