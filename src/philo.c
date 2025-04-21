@@ -1,40 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbounoui <mbounoui@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/16 08:06:30 by mbounoui          #+#    #+#             */
-/*   Updated: 2025/04/20 15:26:07 by mbounoui         ###   ########.fr       */
+/*   Created: 2025/04/21 07:40:11 by mbounoui          #+#    #+#             */
+/*   Updated: 2025/04/21 09:16:30 by mbounoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-int	is_stoped(t_data *data)
-{
-	int	r;
-
-	r = 0;
-	pthread_mutex_lock(&data->sim_stop_lock);
-	if (data->sim_stop == 1)
-		r = 1;
-	pthread_mutex_unlock(&data->sim_stop_lock);
-	return (r);
-}
-
 int	main(int c, char **v)
 {
-	t_data	*data;
-	data = NULL;
+	t_table	*table;
+
+	table = NULL;
 	if (c - 1 < 4 || c - 1 > 5)
-		message(INPUT_MSG);
-	is_valid_input(c, v);
-	data = ft_init(c, v, data);
-	if (!data)
-	    exit(EXIT_FAILURE);
-	start_simulation(data);
-	stop_simulation(data);
-	exit(EXIT_SUCCESS);
+		message("Invalid input!\n");
+	parss_input(c, v);
+	table = init_table(c, v, 1);
+	if (!table)
+		return (EXIT_FAILURE);
+	if (!start(table))
+		return (EXIT_FAILURE);
+	stop(table);
+	return (EXIT_SUCCESS);
 }

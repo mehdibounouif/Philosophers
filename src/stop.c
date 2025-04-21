@@ -1,28 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   stop_sim.c                                         :+:      :+:    :+:   */
+/*   stop.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbounoui <mbounoui@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/18 10:20:02 by mbounoui          #+#    #+#             */
-/*   Updated: 2025/04/18 10:25:21 by mbounoui         ###   ########.fr       */
+/*   Created: 2025/04/21 09:14:13 by mbounoui          #+#    #+#             */
+/*   Updated: 2025/04/21 09:14:53 by mbounoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-void	stop_simulation(t_data *data)
+void	stop(t_table	*table)
 {
-	int	i;
+	unsigned int	i;
 
 	i = 0;
-	while (i < data->num_of_philos)
+	while (i < table->nb_philos)
 	{
-		pthread_join(data->philos[i]->thread, NULL);
+		pthread_join(table->philos[i]->thread, NULL);
 		i++;
 	}
-	if(data->num_of_philos > 1)
-		pthread_join(data->monitor, NULL);
-	free_data(data);
+	if (table->nb_philos > 1)
+		pthread_join(table->grim_reaper, NULL);
+	destroy_mutexes(table);
+	ft_free(table);
 }

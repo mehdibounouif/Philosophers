@@ -3,18 +3,16 @@ CC = cc
 FLAGS = -Wall -Wextra -Werror -g -pthread
 RM = rm -rf
 SRC_DIR = ./src
-SRC_FILES = main.c\
-	    helper_function.c\
-	    init.c\
-		free.c\
-		modes.c\
-		monitor.c\
-		output_and_errors.c\
-		time_utils.c\
-		start_sim.c\
-		stop_sim.c\
-
-
+SRC_FILES =	philo.c \
+			start.c \
+			stop.c \
+			parsing.c \
+			monitor.c \
+			time.c \
+			routines.c \
+			ft_init.c \
+			display_action.c \
+			utils.c
 
 SRCS = $(addprefix $(SRC_DIR)/, $(SRC_FILES))
 

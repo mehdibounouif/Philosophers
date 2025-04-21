@@ -1,23 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   helper_function.c                                  :+:      :+:    :+:   */
+/*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbounoui <mbounoui@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/16 10:29:22 by mbounoui          #+#    #+#             */
-/*   Updated: 2025/04/20 15:15:59 by mbounoui         ###   ########.fr       */
+/*   Created: 2025/04/21 07:52:13 by mbounoui          #+#    #+#             */
+/*   Updated: 2025/04/21 08:40:18 by mbounoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
-
-void	set_sim_stop_flag(t_data *data,  int status)
-{
-	pthread_mutex_lock(&data->sim_stop_lock);
-	data->sim_stop = status;
-	pthread_mutex_unlock(&data->sim_stop_lock);
-}
 
 int	ft_atoi(char *s)
 {
@@ -43,8 +36,21 @@ int	ft_atoi(char *s)
 	while (*s == 32)
 		s++;
 	if (*s)
-		message(NUMBER_MSG);
+		message("Wadakha number m9ad kon thcham\n");
 	return (res * sign);
 }
 
+void	parss_input(int c, char **v)
+{
+	int	i;
+	long	nb;
 
+	i = 1;
+	while (i < c)
+	{
+		nb = ft_atoi(v[i]);
+		if ((nb <= 0 || nb > INT_MAX) && i != 5)
+			message("");
+		i++;
+	}
+}

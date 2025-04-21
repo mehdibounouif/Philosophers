@@ -1,42 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   time_utils.c                                       :+:      :+:    :+:   */
+/*   time.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbounoui <mbounoui@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/16 07:45:14 by mbounoui          #+#    #+#             */
-/*   Updated: 2025/04/16 09:38:40 by mbounoui         ###   ########.fr       */
+/*   Created: 2025/04/21 07:55:10 by mbounoui          #+#    #+#             */
+/*   Updated: 2025/04/21 07:55:12 by mbounoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
- 
+
 #include "../includes/philo.h"
 
-time_t	current_time(void)
+time_t	get_time_in_ms(void)
 {
-	struct	timeval	tv;
-	time_t	current;
+	struct timeval		tv;
 
 	gettimeofday(&tv, NULL);
-	current = (tv.tv_sec * 1000) + (tv.tv_usec / 1000);
-	return (current);
+	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
 }
 
-void	ft_sleep(t_data *data, time_t time)
+void	philo_sleep(t_table *table, time_t sleep_time)
 {
-	time_t	its_time;
+	time_t	wake_up;
 
-	its_time = current_time() + time;
-	while (current_time() < its_time)
+	wake_up = get_time_in_ms() + sleep_time;
+	while (get_time_in_ms() < wake_up)
 	{
-		if (is_stoped(data))
-			break;
+		if (has_simulation_stopped(table))
+			break ;
 		usleep(100);
 	}
 }
 
-void	ft_wait(time_t start_time)
+void	sim_start_delay(time_t start_time)
 {
-	while (current_time() < start_time)
-		continue;
+	while (get_time_in_ms() < start_time)
+		continue ;
 }

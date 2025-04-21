@@ -5,80 +5,91 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbounoui <mbounoui@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/16 08:49:21 by mbounoui          #+#    #+#             */
-/*   Updated: 2025/04/20 15:16:17 by mbounoui         ###   ########.fr       */
+/*   Created: 2025/04/21 07:44:20 by mbounoui          #+#    #+#             */
+/*   Updated: 2025/04/21 08:51:20 by mbounoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_H
 # define PHILO_H
 
-#include <stdio.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <pthread.h>
-#include <limits.h>
-#include <sys/time.h>
+# include <pthread.h>
+# include <limits.h>
+# include <unistd.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <sys/time.h>
+# include <stdbool.h>
 
-typedef	struct	s_philo t_philo;
 
-typedef struct s_data
+# define STR_PROG_NAME	"philo:"
+# define STR_USAGE	"%s usage: ./philo <number_of_philosophers> \
+<time_to_die> <time_to_eat> <time_to_sleep> \
+[number_of_times_each_philosopher_must_eat]\n"
+# define STR_ERR_INPUT_DIGIT	"%s invalid input: %s: \
+not a valid unsigned integer between 0 and 2147483647.\n"
+# define STR_ERR_INPUT_POFLOW	"%s invalid input: \
+there must be between 1 and %s philosophers.\n"
+# define STR_ERR_THREAD	"%s error: Could not create thread.\n"
+# define STR_ERR_MALLOC	"%s error: Could not allocate memory.\n"
+# define STR_ERR_MUTEX	"%s error: Could not create mutex.\n"
+
+typedef struct s_philo	t_philo;
+
+typedef struct s_table
 {
-	pthread_t	monitor; // thread monitoring philosopher deaths.
-	pthread_mutex_t	sim_stop_lock; // proticting sim_stop from race condition.
-	pthread_mutex_t	*forks_locks; // array of mutexs each representing a fork.
-	pthread_mutex_t	write_lock; // mutex controling console output
-	time_t	start; // start time when the simulation started.
-	time_t	time_to_die; // time of philosopher can stay without eating.
-	time_t	time_to_eat; // time of philosopher while eating.
-	time_t	time_to_sleep; // time of philosopher while sleeping.
-	int	num_of_meals; // number of meal any philosopher must eat (minimum). int	sim_stop; // check if philo is death.
-	int	num_of_philos; // number of philosophers. t_philo	**philos; // list of philosopher with his components.
-	int	sim_stop;
-	t_philo ** philos;
-	//
-}	t_data;
+	time_t			start_time;
+	unsigned int	nb_philos;
+	pthread_t		grim_reaper;
+	time_t			time_to_die;
+	time_t			time_to_eat;
+	time_t			time_to_sleep;
+	int				must_eat_count;
+	bool			sim_stop;
+	pthread_mutex_t	sim_stop_lock;
+	pthread_mutex_t	write_lock;
+	pthread_mutex_t	*fork_locks;
+	t_philo			**philos;
+}	t_table;
 
-typedef	struct	s_philo
+typedef struct s_philo
 {
-	pthread_t	thread; // philosopher
-	pthread_mutex_t	meal_time_lock; // protecting last meal 
-	int	id; // philo id 
-	int	time_ate; // number of times the philosopher has eaten.
-	int	fork[2]; // indices of two forks
-	time_t	last_meal; // time of the philosopher's last meal.
-	t_data	*data; //pointer to data struct.
+	pthread_t			thread;
+	unsigned int		id;
+	unsigned int		times_ate;
+	unsigned int		fork[2];
+	pthread_mutex_t		meal_time_lock;
+	time_t				last_meal;
+	t_table				*table;
 }	t_philo;
 
-#define INPUT_MSG "Valid input:\n\
-	    number of philosophers\n\
-	    time_to_die\n\
-	    time_to_eat\n\
-	    time_to_sleep\n\
-	    [number_of_times_each_philosopher_must_eat] (optional).\
-	    \n\
-	    \nexample:   ./philo 5 200 200 100 2\n"
-# define NUMBER_MSG "Wadakha number m9ad kon thcham\n"
-# define RANGE_MSG "between 0 and INT_MAX 3AFAK\n"
+typedef enum e_status
+{
+	DIED = 0,
+	EATING = 1,
+	SLEEPING = 2,
+	THINKING = 3,
+	GOT_FORK_1 = 4,
+	GOT_FORK_2 = 5
+}	t_status;
 
-void	message(char *msg);
-int     ft_atoi(char *s);
-void	is_valid_input(int c, char **v);
-t_data  *ft_init(int c, char **v, t_data *data);
-int	ft_strlen(char *s);
-void	free_data(t_data *data);
-void	print_error(t_data *data, char *str);
-int   is_stoped(t_data *data);
-time_t	current_time(void);
-void	*monitor_routine(void *args);
-void	*philos_routine(void *args);
-void	single_routine(t_philo *philo);
-void	start_simulation(t_data *data);
-void	stop_simulation(t_data *data);
-void	ft_sleep(t_data *data, time_t time);
-void	eat_mode(t_philo *philo);
-void	think_mode(t_philo *philo, int	flag);
-void	display(t_philo *philo, char *status);
-void	ft_wait(time_t start_time);
-void	set_sim_stop_flag(t_data *data,  int status);
-#endif 
+void	parss_input(int c, char **v);
+int	ft_atoi(char *s);
+int		start(t_table *table);
+void	stop(t_table	*table);
+t_table			*init_table(int ac, char **av, int i);
+void			*philosopher(void *data);
+time_t			get_time_in_ms(void);
+void			philo_sleep(t_table *table, time_t sleep_time);
+void			sim_start_delay(time_t start_time);
+void			write_status(t_philo *philo, bool reaper, t_status status);
+void			*grim_reaper(void *data);
+bool			has_simulation_stopped(t_table *table);
+void			destroy_mutexes(t_table *table);
+void	eat_sleep_routine(t_philo *philo);
+void	think_routine(t_philo *philo, bool silent);
+void	*lone_philo_routine(t_philo *philo);
+void	ft_error(t_table *table, char *msg);
+void	message(char	*msg);
+void	ft_free(t_table *table);
+#endif
