@@ -14,27 +14,27 @@
 
 static void	print_status(t_philo *philo, char *str)
 {
-	printf("%ld %d %s\n", get_time_in_ms() - philo->table->start_time,
+	printf("%ld %d %s\n", current_time() - philo->data->start,
 		philo->id + 1, str);
 }
 
-void	write_status(t_philo *philo, bool reaper_report, t_status status)
+void	write_status(t_philo *philo, bool reaper_report, char *status)
 {
-	pthread_mutex_lock(&philo->table->write_lock);
-	if (has_simulation_stopped(philo->table) == true && reaper_report == false)
+	pthread_mutex_lock(&philo->data->write_lock);
+	if (is_stoped(philo->data) == true && reaper_report == false)
 	{
-		pthread_mutex_unlock(&philo->table->write_lock);
+		pthread_mutex_unlock(&philo->data->write_lock);
 		return ;
 	}
-	if (status == DIED)
+	if (!ft_strcmp(status, "died"))
 		print_status(philo, "died");
-	else if (status == EATING)
+	else if (!ft_strcmp(status, "is eating"))
 		print_status(philo, "is eating");
-	else if (status == SLEEPING)
+	else if (!ft_strcmp(status, "is sleeping"))
 		print_status(philo, "is sleeping");
-	else if (status == THINKING)
+	else if (!ft_strcmp(status,"is thinking"))
 		print_status(philo, "is thinking");
-	else if (status == GOT_FORK_1 || status == GOT_FORK_2)
+	else if (!ft_strcmp(status, "has taken a fork"))
 		print_status(philo, "has taken a fork");
-	pthread_mutex_unlock(&philo->table->write_lock);
+	pthread_mutex_unlock(&philo->data->write_lock);
 }

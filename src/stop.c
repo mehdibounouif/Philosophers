@@ -12,18 +12,18 @@
 
 #include "../includes/philo.h"
 
-void	stop(t_table	*table)
+void	stop(t_data	*data)
 {
 	unsigned int	i;
 
 	i = 0;
-	while (i < table->nb_philos)
+	while (i < data->num_of_philos)
 	{
-		pthread_join(table->philos[i]->thread, NULL);
+		pthread_join(data->philos[i]->thread, NULL);
 		i++;
 	}
-	if (table->nb_philos > 1)
-		pthread_join(table->grim_reaper, NULL);
-	destroy_mutexes(table);
-	ft_free(table);
+	if (data->num_of_philos > 1)
+		pthread_join(data->monitor_routine, NULL);
+	destroy_mutexes(data);
+	ft_free(data);
 }

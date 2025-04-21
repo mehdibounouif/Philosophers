@@ -12,6 +12,18 @@
 
 #include "../includes/philo.h"
 
+int ft_strcmp(char *s1, char *s2)
+{
+  while (*s1)
+  {
+    if (*s1 != *s2)
+      return (*s1 - *s2);
+    s1++;
+    s2++;
+  }
+  return (*s1 - *s2);
+}
+
 int	ft_strlen(char *str)
 {
 	int	i;
@@ -22,35 +34,35 @@ int	ft_strlen(char *str)
 	return (i);
 }
 
-void	ft_free(t_table *table)
+void	ft_free(t_data *data)
 {
 	unsigned int	i;
 
 	i = 0;
-	while (i < table->nb_philos)
-		free(table->philos[i++]);
-	free(table->philos);
+	while (i < data->num_of_philos)
+		free(data->philos[i++]);
+	free(data->philos);
 	i = 0;
-	while (i < table->nb_philos)
-		pthread_mutex_destroy(&table->fork_locks[i++]);
-	free(table->fork_locks);
-	pthread_mutex_destroy(&table->sim_stop_lock);
-	pthread_mutex_destroy(&table->write_lock);
+	while (i < data->num_of_philos)
+		pthread_mutex_destroy(&data->fork_locks[i++]);
+	free(data->fork_locks);
+	pthread_mutex_destroy(&data->sim_stop_lock);
+	pthread_mutex_destroy(&data->write_lock);
 }
 
-void	destroy_mutexes(t_table *table)
+void	destroy_mutexes(t_data *data)
 {
 	unsigned int	i;
 
 	i = 0;
-	while (i < table->nb_philos)
+	while (i < data->num_of_philos)
 	{
-		pthread_mutex_destroy(&table->fork_locks[i]);
-		pthread_mutex_destroy(&table->philos[i]->meal_time_lock);
+		pthread_mutex_destroy(&data->fork_locks[i]);
+		pthread_mutex_destroy(&data->philos[i]->meal_time_lock);
 		i++;
 	}
-	pthread_mutex_destroy(&table->write_lock);
-	pthread_mutex_destroy(&table->sim_stop_lock);
+	pthread_mutex_destroy(&data->write_lock);
+	pthread_mutex_destroy(&data->sim_stop_lock);
 }
 
 void	message(char	*msg)
@@ -59,10 +71,10 @@ void	message(char	*msg)
 	exit(EXIT_FAILURE);
 }
 
-void	ft_error(t_table *table, char *msg)
+void	ft_error(t_data *data, char *msg)
 {
-	if (table)
-		ft_free(table);
+	if (data)
+		ft_free(data);
 	if (msg)
 		message(msg);
 	exit(EXIT_FAILURE);

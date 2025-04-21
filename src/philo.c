@@ -14,17 +14,17 @@
 
 int	main(int c, char **v)
 {
-	t_table	*table;
+	t_data	*data;
 
-	table = NULL;
+	data = NULL;
 	if (c - 1 < 4 || c - 1 > 5)
 		message("Invalid input!\n");
 	parss_input(c, v);
-	table = init_table(c, v, 1);
-	if (!table)
+	data = init_data(c, v, 1);
+	if (!data)
 		return (EXIT_FAILURE);
-	if (!start(table))
+	if (!start(data))
 		return (EXIT_FAILURE);
-	stop(table);
+	stop(data);
 	return (EXIT_SUCCESS);
 }

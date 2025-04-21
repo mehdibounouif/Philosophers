@@ -12,7 +12,7 @@
 
 #include "../includes/philo.h"
 
-time_t	get_time_in_ms(void)
+time_t	current_time(void)
 {
 	struct timeval		tv;
 
@@ -20,21 +20,21 @@ time_t	get_time_in_ms(void)
 	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
 }
 
-void	philo_sleep(t_table *table, time_t sleep_time)
+void	philo_sleep(t_data *data, time_t sleep_time)
 {
 	time_t	wake_up;
 
-	wake_up = get_time_in_ms() + sleep_time;
-	while (get_time_in_ms() < wake_up)
+	wake_up = current_time() + sleep_time;
+	while (current_time() < wake_up)
 	{
-		if (has_simulation_stopped(table))
+		if (is_stoped(data))
 			break ;
 		usleep(100);
 	}
 }
 
-void	sim_start_delay(time_t start_time)
+void	wait_others(time_t start)
 {
-	while (get_time_in_ms() < start_time)
+	while (current_time() < start)
 		continue ;
 }

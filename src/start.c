@@ -12,24 +12,24 @@
 
 #include "../includes/philo.h"
 
-int	start(t_table *table)
+int	start(t_data *data)
 {
 	unsigned int	i;
 
-	table->start_time = get_time_in_ms() + (table->nb_philos * 2 * 10);
+	data->start = current_time() + (data->num_of_philos * 2 * 10);
 	i = 0;
-	while (i < table->nb_philos)
+	while (i < data->num_of_philos)
 	{
-		if (pthread_create(&table->philos[i]->thread, NULL,
-				&philosopher, table->philos[i]) != 0)
-			ft_error(table, "pthread_create failed!\n");
+		if (pthread_create(&data->philos[i]->thread, NULL,
+				&life_of_philo, data->philos[i]) != 0)
+			ft_error(data, "pthread_create failed!\n");
 		i++;
 	}
-	if (table->nb_philos > 1)
+	if (data->num_of_philos > 1)
 	{
-		if (pthread_create(&table->grim_reaper, NULL,
-				&grim_reaper, table) != 0)
-			ft_error(table, "pthread_create failed!\n");
+		if (pthread_create(&data->monitor_routine, NULL,
+				&monitor_routine, data) != 0)
+			ft_error(data, "pthread_create failed!\n");
 	}
 	return (1);
 }

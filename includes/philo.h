@@ -36,21 +36,21 @@ there must be between 1 and %s philosophers.\n"
 
 typedef struct s_philo	t_philo;
 
-typedef struct s_table
+typedef struct s_data
 {
-	time_t			start_time;
-	unsigned int	nb_philos;
-	pthread_t		grim_reaper;
+	time_t			start;
+	unsigned int	num_of_philos;
+	pthread_t		monitor_routine;
 	time_t			time_to_die;
 	time_t			time_to_eat;
 	time_t			time_to_sleep;
-	int				must_eat_count;
+	int				num_of_meals;
 	bool			sim_stop;
 	pthread_mutex_t	sim_stop_lock;
 	pthread_mutex_t	write_lock;
 	pthread_mutex_t	*fork_locks;
 	t_philo			**philos;
-}	t_table;
+}	t_data;
 
 typedef struct s_philo
 {
@@ -60,36 +60,28 @@ typedef struct s_philo
 	unsigned int		fork[2];
 	pthread_mutex_t		meal_time_lock;
 	time_t				last_meal;
-	t_table				*table;
+	t_data				*data;
 }	t_philo;
 
-typedef enum e_status
-{
-	DIED = 0,
-	EATING = 1,
-	SLEEPING = 2,
-	THINKING = 3,
-	GOT_FORK_1 = 4,
-	GOT_FORK_2 = 5
-}	t_status;
 
 void	parss_input(int c, char **v);
 int	ft_atoi(char *s);
-int		start(t_table *table);
-void	stop(t_table	*table);
-t_table			*init_table(int ac, char **av, int i);
-void			*philosopher(void *data);
-time_t			get_time_in_ms(void);
-void			philo_sleep(t_table *table, time_t sleep_time);
-void			sim_start_delay(time_t start_time);
-void			write_status(t_philo *philo, bool reaper, t_status status);
-void			*grim_reaper(void *data);
-bool			has_simulation_stopped(t_table *table);
-void			destroy_mutexes(t_table *table);
+int		start(t_data *data);
+void	stop(t_data	*data);
+t_data			*init_data(int ac, char **av, int i);
+void			*life_of_philo(void *data);
+time_t			current_time(void);
+void			philo_sleep(t_data *data, time_t sleep_time);
+void			wait_others(time_t start);
+void			*monitor_routine(void *args);
+void			write_status(t_philo *philo, bool reaper, char *status);
+bool			is_stoped(t_data *data);
+void			destroy_mutexes(t_data *data);
 void	eat_sleep_routine(t_philo *philo);
 void	think_routine(t_philo *philo, bool silent);
-void	*lone_philo_routine(t_philo *philo);
-void	ft_error(t_table *table, char *msg);
+void	*single(t_philo *philo);
+void	ft_error(t_data *data, char *msg);
 void	message(char	*msg);
-void	ft_free(t_table *table);
+void	ft_free(t_data *data);
+int   ft_strcmp(char *s1, char *s2);
 #endif

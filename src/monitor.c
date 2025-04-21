@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   grim_reaper.c                                      :+:      :+:    :+:   */
+/*   monitor.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbounoui <mbounoui@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,22 +12,22 @@
 
 #include "../includes/philo.h"
 
-static void	set_sim_stop_flag(t_table *table, bool state)
+static void	set_sim_stop_flag(t_data *data, bool state)
 {
-	pthread_mutex_lock(&table->sim_stop_lock);
-		table->sim_stop = state;
-	pthread_mutex_unlock(&table->sim_stop_lock);
+	pthread_mutex_lock(&data->sim_stop_lock);
+		data->sim_stop = state;
+	pthread_mutex_unlock(&data->sim_stop_lock);
 }
 
-bool	has_simulation_stopped(t_table *table)
+bool	is_stoped(t_data *data)
 {
 	bool	r;
 
 	r = false;
-	pthread_mutex_lock(&table->sim_stop_lock);
-	if (table->sim_stop == true)
+	pthread_mutex_lock(&data->sim_stop_lock);
+	if (data->sim_stop == true)
 		r = true;
-	pthread_mutex_unlock(&table->sim_stop_lock);
+	pthread_mutex_unlock(&data->sim_stop_lock);
 	return (r);
 }
 
@@ -35,56 +35,56 @@ static bool	kill_philo(t_philo *philo)
 {
 	time_t	time;
 
-	time = get_time_in_ms();
-	if ((time - philo->last_meal) >= philo->table->time_to_die)
+	time = current_time();
+	if ((time - philo->last_meal) >= philo->data->time_to_die)
 	{
-		set_sim_stop_flag(philo->table, true);
-		write_status(philo, true, DIED);
+		set_sim_stop_flag(philo->data, true);
+		write_status(philo, true, "died");
 		pthread_mutex_unlock(&philo->meal_time_lock);
 		return (true);
 	}
 	return (false);
 }
 
-static bool	end_condition_reached(t_table *table)
+static bool	end_condition_reached(t_data *data)
 {
 	unsigned int	i;
 	bool			all_ate_enough;
 
 	all_ate_enough = true;
 	i = 0;
-	while (i < table->nb_philos)
+	while (i < data->num_of_philos)
 	{
-		pthread_mutex_lock(&table->philos[i]->meal_time_lock);
-		if (kill_philo(table->philos[i]))
+		pthread_mutex_lock(&data->philos[i]->meal_time_lock);
+		if (kill_philo(data->philos[i]))
 			return (true);
-		if (table->must_eat_count != -1)
-			if (table->philos[i]->times_ate
-				< (unsigned int)table->must_eat_count)
+		if (data->num_of_meals != -1)
+			if (data->philos[i]->times_ate
+				< (unsigned int)data->num_of_meals)
 				all_ate_enough = false;
-		pthread_mutex_unlock(&table->philos[i]->meal_time_lock);
+		pthread_mutex_unlock(&data->philos[i]->meal_time_lock);
 		i++;
 	}
-	if (table->must_eat_count != -1 && all_ate_enough == true)
+	if (data->num_of_meals != -1 && all_ate_enough == true)
 	{
-		set_sim_stop_flag(table, true);
+		set_sim_stop_flag(data, true);
 		return (true);
 	}
 	return (false);
 }
 
-void	*grim_reaper(void *data)
+void	*monitor_routine(void *args)
 {
-	t_table			*table;
+	t_data			*data;
 
-	table = (t_table *)data;
-	if (table->must_eat_count == 0)
+	data = (t_data *)args;
+	if (data->num_of_meals == 0)
 		return (NULL);
-	set_sim_stop_flag(table, false);
-	sim_start_delay(table->start_time);
+	set_sim_stop_flag(data, false);
+	wait_others(data->start);
 	while (true)
 	{
-		if (end_condition_reached(table) == true)
+		if (end_condition_reached(data) == true)
 			return (NULL);
 		usleep(1000);
 	}
