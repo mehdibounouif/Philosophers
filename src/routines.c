@@ -6,7 +6,7 @@
 /*   By: mbounoui <mbounoui@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 14:12:13 by mbounoui          #+#    #+#             */
-/*   Updated: 2025/04/22 14:17:41 by mbounoui         ###   ########.fr       */
+/*   Updated: 2025/04/22 14:36:47 by mbounoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ void	*life_of_philo(void *data)
 	while (is_stoped(philo->data) == false)
 	{
 		eat_sleep_routine(philo);
+		sleep_mode(philo);
 		think_routine(philo);
 	}
 	return (NULL);
