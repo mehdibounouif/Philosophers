@@ -6,7 +6,7 @@
 /*   By: mbounoui <mbounoui@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 09:14:13 by mbounoui          #+#    #+#             */
-/*   Updated: 2025/04/21 09:14:53 by mbounoui         ###   ########.fr       */
+/*   Updated: 2025/04/22 14:18:05 by mbounoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	stop(t_data	*data)
 {
-	unsigned int	i;
+	int	i;
 
 	i = 0;
 	while (i < data->num_of_philos)

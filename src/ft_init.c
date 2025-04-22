@@ -6,7 +6,7 @@
 /*   By: mbounoui <mbounoui@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 07:47:31 by mbounoui          #+#    #+#             */
-/*   Updated: 2025/04/22 09:45:51 by mbounoui         ###   ########.fr       */
+/*   Updated: 2025/04/22 14:18:48 by mbounoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	take_forks(t_philo *philo)
 
 t_philo	**init_philos(t_data *data)
 {
-	unsigned int	i;
+	int	i;
 	t_philo	**philos;
 
 	i = 0;
@@ -52,7 +52,7 @@ t_philo	**init_philos(t_data *data)
 
 void	init_mutexes(t_data *data)
 {
-	unsigned int	i;
+	int	i;
 
 	data->fork_locks = malloc(sizeof(pthread_mutex_t) * data->num_of_philos);
 	if (!data->fork_locks)

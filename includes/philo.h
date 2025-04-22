@@ -6,7 +6,7 @@
 /*   By: mbounoui <mbounoui@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 07:44:20 by mbounoui          #+#    #+#             */
-/*   Updated: 2025/04/22 11:16:19 by mbounoui         ###   ########.fr       */
+/*   Updated: 2025/04/22 14:09:02 by mbounoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ typedef struct s_data
 	m_t	sim_stop_lock;
 	m_t	write_lock;
 	m_t	*fork_locks;
-	unsigned int	num_of_philos;
+	int	num_of_philos;
 	time_t			start;
 	time_t			time_to_die;
 	time_t			time_to_eat;
@@ -42,9 +42,9 @@ typedef struct s_data
 typedef struct s_philo
 {
 	pthread_t			thread;
-	unsigned int		id;
-	unsigned int		times_ate;
-	unsigned int		fork[2];
+	int		id;
+	int		times_ate;
+	int		fork[2];
 	m_t		meal_time_lock;
 	time_t				last_meal;
 	t_data				*data;

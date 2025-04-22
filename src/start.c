@@ -6,7 +6,7 @@
 /*   By: mbounoui <mbounoui@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 09:12:25 by mbounoui          #+#    #+#             */
-/*   Updated: 2025/04/22 11:01:54 by mbounoui         ###   ########.fr       */
+/*   Updated: 2025/04/22 14:09:32 by mbounoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	start(t_data *data)
 {
-	unsigned int	i;
+	int	i;
 
 	data->start = current_time() + (data->num_of_philos * 2 * 10);
 	i = 0;

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   routines.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mbounoui <mbounoui@student.1337.ma>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/22 14:12:13 by mbounoui          #+#    #+#             */
+/*   Updated: 2025/04/22 14:17:41 by mbounoui         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/philo.h"
 
 void	eat_sleep_routine(t_philo *philo)
@@ -11,15 +23,27 @@ void	eat_sleep_routine(t_philo *philo)
 	philo->last_meal = current_time();
 	pthread_mutex_unlock(&philo->meal_time_lock);
 	philo_sleep(philo->data, philo->data->time_to_eat);
+	//if (is_stoped(philo->data) == false)
+	//{
+	//	pthread_mutex_lock(&philo->meal_time_lock);
+	//	philo->times_ate += 1;
+	//	pthread_mutex_unlock(&philo->meal_time_lock);
+	//}
+	//write_status(philo, "is sleeping");
+	pthread_mutex_unlock(&philo->data->fork_locks[philo->fork[1]]);
+	pthread_mutex_unlock(&philo->data->fork_locks[philo->fork[0]]);
+	//philo_sleep(philo->data, philo->data->time_to_sleep);
+}
+
+void	sleep_mode(t_philo *philo)
+{
 	if (is_stoped(philo->data) == false)
 	{
 		pthread_mutex_lock(&philo->meal_time_lock);
 		philo->times_ate += 1;
 		pthread_mutex_unlock(&philo->meal_time_lock);
 	}
-	write_status(philo, "is sleeping");
-	pthread_mutex_unlock(&philo->data->fork_locks[philo->fork[1]]);
-	pthread_mutex_unlock(&philo->data->fork_locks[philo->fork[0]]);
+	write_status(philo, "is sleeping");	
 	philo_sleep(philo->data, philo->data->time_to_sleep);
 }
 

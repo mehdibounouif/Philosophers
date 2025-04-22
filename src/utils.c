@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit.c                                             :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbounoui <mbounoui@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 07:45:54 by mbounoui          #+#    #+#             */
-/*   Updated: 2025/04/21 08:57:53 by mbounoui         ###   ########.fr       */
+/*   Updated: 2025/04/22 14:19:14 by mbounoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	ft_strlen(char *str)
 
 void	ft_free(t_data *data)
 {
-	unsigned int	i;
+	int	i;
 
 	i = 0;
 	while (i < data->num_of_philos)
@@ -52,7 +52,7 @@ void	ft_free(t_data *data)
 
 void	destroy_mutexes(t_data *data)
 {
-	unsigned int	i;
+	int	i;
 
 	i = 0;
 	while (i < data->num_of_philos)
