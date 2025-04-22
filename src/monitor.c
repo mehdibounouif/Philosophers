@@ -1,76 +1,72 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   monitor.c                                      :+:      :+:    :+:   */
+/*   monitor.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbounoui <mbounoui@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 07:46:40 by mbounoui          #+#    #+#             */
-/*   Updated: 2025/04/21 07:46:41 by mbounoui         ###   ########.fr       */
+/*   Updated: 2025/04/22 11:31:02 by mbounoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-static void	set_sim_stop_flag(t_data *data, bool state)
+void	set_sim_stop_flag(t_data *data, int state)
 {
 	pthread_mutex_lock(&data->sim_stop_lock);
-		data->sim_stop = state;
+		data->stop_flag = state;
 	pthread_mutex_unlock(&data->sim_stop_lock);
 }
 
-bool	is_stoped(t_data *data)
+int	is_stoped(t_data *data)
 {
-	bool	r;
-
-	r = false;
 	pthread_mutex_lock(&data->sim_stop_lock);
-	if (data->sim_stop == true)
-		r = true;
+	if (data->stop_flag == 1)
+	{
+		pthread_mutex_unlock(&data->sim_stop_lock);
+		return (1);
+	}
 	pthread_mutex_unlock(&data->sim_stop_lock);
-	return (r);
+	return (0);
 }
 
-static bool	kill_philo(t_philo *philo)
+int	is_kill(t_philo *philo)
 {
-	time_t	time;
-
-	time = current_time();
-	if ((time - philo->last_meal) >= philo->data->time_to_die)
+	if ((current_time() - philo->last_meal) >= philo->data->time_to_die)
 	{
 		set_sim_stop_flag(philo->data, true);
-		write_status(philo, true, "died");
+		write_status(philo, "died");
 		pthread_mutex_unlock(&philo->meal_time_lock);
-		return (true);
+		return (1);
 	}
-	return (false);
+	return (0);
 }
 
-static bool	end_condition_reached(t_data *data)
+int	philo_state(t_data *data)
 {
 	unsigned int	i;
-	bool			all_ate_enough;
+	int			eat_enough;
 
-	all_ate_enough = true;
+	eat_enough = 1;
 	i = 0;
 	while (i < data->num_of_philos)
 	{
 		pthread_mutex_lock(&data->philos[i]->meal_time_lock);
-		if (kill_philo(data->philos[i]))
+		if (is_kill(data->philos[i]))
 			return (true);
 		if (data->num_of_meals != -1)
-			if (data->philos[i]->times_ate
-				< (unsigned int)data->num_of_meals)
-				all_ate_enough = false;
+			if (data->philos[i]->times_ate < (unsigned int)data->num_of_meals)
+				eat_enough = 0;
 		pthread_mutex_unlock(&data->philos[i]->meal_time_lock);
 		i++;
 	}
-	if (data->num_of_meals != -1 && all_ate_enough == true)
+	if (data->num_of_meals != -1 && eat_enough == 1)
 	{
 		set_sim_stop_flag(data, true);
-		return (true);
+		return (1);
 	}
-	return (false);
+	return (0);
 }
 
 void	*monitor_routine(void *args)
@@ -78,13 +74,11 @@ void	*monitor_routine(void *args)
 	t_data			*data;
 
 	data = (t_data *)args;
-	if (data->num_of_meals == 0)
-		return (NULL);
 	set_sim_stop_flag(data, false);
 	wait_others(data->start);
 	while (true)
 	{
-		if (end_condition_reached(data) == true)
+		if (philo_state(data) == true)
 			return (NULL);
 		usleep(1000);
 	}

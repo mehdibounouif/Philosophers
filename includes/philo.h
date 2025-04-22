@@ -6,7 +6,7 @@
 /*   By: mbounoui <mbounoui@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 07:44:20 by mbounoui          #+#    #+#             */
-/*   Updated: 2025/04/21 08:51:20 by mbounoui         ###   ########.fr       */
+/*   Updated: 2025/04/22 11:16:19 by mbounoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,34 +21,21 @@
 # include <sys/time.h>
 # include <stdbool.h>
 
-
-# define STR_PROG_NAME	"philo:"
-# define STR_USAGE	"%s usage: ./philo <number_of_philosophers> \
-<time_to_die> <time_to_eat> <time_to_sleep> \
-[number_of_times_each_philosopher_must_eat]\n"
-# define STR_ERR_INPUT_DIGIT	"%s invalid input: %s: \
-not a valid unsigned integer between 0 and 2147483647.\n"
-# define STR_ERR_INPUT_POFLOW	"%s invalid input: \
-there must be between 1 and %s philosophers.\n"
-# define STR_ERR_THREAD	"%s error: Could not create thread.\n"
-# define STR_ERR_MALLOC	"%s error: Could not allocate memory.\n"
-# define STR_ERR_MUTEX	"%s error: Could not create mutex.\n"
-
 typedef struct s_philo	t_philo;
-
+typedef	pthread_mutex_t m_t;
 typedef struct s_data
 {
-	time_t			start;
-	unsigned int	num_of_philos;
 	pthread_t		monitor_routine;
+	m_t	sim_stop_lock;
+	m_t	write_lock;
+	m_t	*fork_locks;
+	unsigned int	num_of_philos;
+	time_t			start;
 	time_t			time_to_die;
 	time_t			time_to_eat;
 	time_t			time_to_sleep;
 	int				num_of_meals;
-	bool			sim_stop;
-	pthread_mutex_t	sim_stop_lock;
-	pthread_mutex_t	write_lock;
-	pthread_mutex_t	*fork_locks;
+	int				stop_flag;
 	t_philo			**philos;
 }	t_data;
 
@@ -58,7 +45,7 @@ typedef struct s_philo
 	unsigned int		id;
 	unsigned int		times_ate;
 	unsigned int		fork[2];
-	pthread_mutex_t		meal_time_lock;
+	m_t		meal_time_lock;
 	time_t				last_meal;
 	t_data				*data;
 }	t_philo;
@@ -66,19 +53,23 @@ typedef struct s_philo
 
 void	parss_input(int c, char **v);
 int	ft_atoi(char *s);
-int		start(t_data *data);
+void	start(t_data *data);
 void	stop(t_data	*data);
-t_data			*init_data(int ac, char **av, int i);
+t_data	*init_data(int ac, char **av);
+t_philo		**init_philos(t_data *data);
 void			*life_of_philo(void *data);
 time_t			current_time(void);
 void			philo_sleep(t_data *data, time_t sleep_time);
 void			wait_others(time_t start);
 void			*monitor_routine(void *args);
-void			write_status(t_philo *philo, bool reaper, char *status);
-bool			is_stoped(t_data *data);
+void	write_status(t_philo *philo, char *status);
+int	philo_state(t_data *data);
+int			is_stoped(t_data *data);
+int			is_kill(t_philo *philo);
 void			destroy_mutexes(t_data *data);
+void	set_sim_stop_flag(t_data *data, int state);
 void	eat_sleep_routine(t_philo *philo);
-void	think_routine(t_philo *philo, bool silent);
+void	think_routine(t_philo *philo);
 void	*single(t_philo *philo);
 void	ft_error(t_data *data, char *msg);
 void	message(char	*msg);
