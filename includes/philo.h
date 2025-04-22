@@ -67,7 +67,7 @@ int	philo_state(t_data *data);
 int			is_stoped(t_data *data);
 int			is_kill(t_philo *philo);
 void			destroy_mutexes(t_data *data);
-void	set_sim_stop_flag(t_data *data, int state);
+//void	set_sim_stop_flag(t_data *data, int state);
 void	eat_sleep_routine(t_philo *philo);
 void	think_routine(t_philo *philo);
 void	*single(t_philo *philo);
