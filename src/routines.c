@@ -6,7 +6,7 @@
 /*   By: mbounoui <mbounoui@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 14:12:13 by mbounoui          #+#    #+#             */
-/*   Updated: 2025/04/23 09:32:11 by mbounoui         ###   ########.fr       */
+/*   Updated: 2025/04/23 11:32:42 by mbounoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	sleep_routine(t_philo *philo)
 		philo->count_meals += 1;
 		pthread_mutex_unlock(&philo->meal_lock);
 	}
-	write_status(philo, "is sleeping");	
+	write_status(philo, "is sleeping");
 	philo_sleep(philo->data, philo->data->time_to_sleep);
 }
 
@@ -46,18 +46,18 @@ void	think_routine(t_philo *philo)
 	time_t	left_until_death;
 
 	pthread_mutex_lock(&philo->meal_lock);
-	hangry = current_time() - philo->last_meal; // How long he been hungry
-	left_until_death = philo->data->time_to_die - hangry; // How much time does he have left until death
-	thinkign_time = (left_until_death - philo->data->time_to_eat); // Final time .
+	hangry = current_time() - philo->last_meal;
+	left_until_death = philo->data->time_to_die - hangry;
+	thinkign_time = (left_until_death - philo->data->time_to_eat);
 	pthread_mutex_unlock(&philo->meal_lock);
-	if	(thinkign_time == 0)
+	if (thinkign_time == 0)
 		thinkign_time = 1;
-	if	(thinkign_time < 0)
+	if (thinkign_time < 0)
 		thinkign_time = 0;
-	if	(thinkign_time > 600)
+	if (thinkign_time > 600)
 		thinkign_time = 200;
 	write_status(philo, "is thinking");
-	philo_sleep(philo->data,	thinkign_time);
+	philo_sleep(philo->data, thinkign_time);
 }
 
 void	*single_routine(t_philo *philo)

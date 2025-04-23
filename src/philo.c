@@ -6,7 +6,7 @@
 /*   By: mbounoui <mbounoui@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 07:40:11 by mbounoui          #+#    #+#             */
-/*   Updated: 2025/04/23 09:17:07 by mbounoui         ###   ########.fr       */
+/*   Updated: 2025/04/23 11:23:25 by mbounoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	main(int c, char **v)
 	parss_input(c, v);
 	data = init_data(c, v);
 	data->philos = init_philos(data);
-	init_mutexes(data);	
+	init_mutexes(data);
 	start(data);
 	stop(data);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: mbounoui <mbounoui@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 07:55:10 by mbounoui          #+#    #+#             */
-/*   Updated: 2025/04/22 11:17:47 by mbounoui         ###   ########.fr       */
+/*   Updated: 2025/04/23 11:09:31 by mbounoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	philo_sleep(t_data *data, time_t sleep_time)
 	{
 		if (is_stoped(data))
 			break ;
-		usleep(100);
+		usleep(1000);
 	}
 }
 

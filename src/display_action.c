@@ -6,11 +6,12 @@
 /*   By: mbounoui <mbounoui@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 07:49:16 by mbounoui          #+#    #+#             */
-/*   Updated: 2025/04/22 11:16:30 by mbounoui         ###   ########.fr       */
+/*   Updated: 2025/04/23 11:43:33 by mbounoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
+
 static void	output(t_philo *philo, char *str)
 {
 	printf("%ld %d %s\n", current_time() - philo->data->start,
@@ -31,7 +32,7 @@ void	write_status(t_philo *philo, char *status)
 		output(philo, "is eating");
 	else if (!ft_strcmp(status, "is sleeping"))
 		output(philo, "is sleeping");
-	else if (!ft_strcmp(status,"is thinking"))
+	else if (!ft_strcmp(status, "is thinking"))
 		output(philo, "is thinking");
 	else if (!ft_strcmp(status, "has taken a fork"))
 		output(philo, "has taken a fork");

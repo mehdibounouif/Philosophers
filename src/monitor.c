@@ -6,7 +6,7 @@
 /*   By: mbounoui <mbounoui@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 07:46:40 by mbounoui          #+#    #+#             */
-/*   Updated: 2025/04/23 09:21:11 by mbounoui         ###   ########.fr       */
+/*   Updated: 2025/04/23 11:36:23 by mbounoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	is_kill(t_philo *philo)
 		write_status(philo, "died");
 		pthread_mutex_lock(&philo->data->stop_lock);
 		philo->data->stop_flag = 1;
-	    pthread_mutex_unlock(&philo->data->stop_lock);
+		pthread_mutex_unlock(&philo->data->stop_lock);
 		pthread_mutex_unlock(&philo->meal_lock);
 		return (1);
 	}
@@ -41,7 +41,7 @@ int	is_kill(t_philo *philo)
 int	philo_state(t_data *data)
 {
 	int	i;
-	int			eat_enough;
+	int	eat_enough;
 
 	eat_enough = 1;
 	i = 0;
@@ -71,9 +71,6 @@ void	*monitor_routine(void *args)
 	t_data			*data;
 
 	data = (t_data *)args;
-	pthread_mutex_lock(&data->stop_lock);
-	data->stop_flag = 0;
-	pthread_mutex_unlock(&data->stop_lock);
 	wait_others(data->start);
 	while (1)
 	{

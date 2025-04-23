@@ -6,7 +6,7 @@
 /*   By: mbounoui <mbounoui@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 09:12:25 by mbounoui          #+#    #+#             */
-/*   Updated: 2025/04/23 09:04:25 by mbounoui         ###   ########.fr       */
+/*   Updated: 2025/04/23 10:57:55 by mbounoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,10 @@ void	start(t_data *data)
 
 	data->start = current_time() + (data->num_of_philos * 10);
 	i = 0;
-	if (data->num_of_meals == 0 || data->time_to_die == 0)
-		ft_error(data, "Zeros laaa!\n");
+	if (data->num_of_meals == 0)
+		ft_error(data, "Makayn mayt9asa!\n");
+	if (data->time_to_die == 0)
+		ft_error(data, "Sahbi rah matna!\n");
 	while (i < data->num_of_philos)
 	{
 		if (pthread_create(&data->philos[i]->thread, NULL,
