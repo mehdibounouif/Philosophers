@@ -6,7 +6,7 @@
 /*   By: mbounoui <mbounoui@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 07:44:20 by mbounoui          #+#    #+#             */
-/*   Updated: 2025/04/22 14:09:02 by mbounoui         ###   ########.fr       */
+/*   Updated: 2025/04/23 08:46:42 by mbounoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,13 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <sys/time.h>
-# include <stdbool.h>
 
 typedef struct s_philo	t_philo;
 typedef	pthread_mutex_t m_t;
 typedef struct s_data
 {
 	pthread_t		monitor_routine;
-	m_t	sim_stop_lock;
+	m_t	stop_lock;
 	m_t	write_lock;
 	m_t	*fork_locks;
 	int	num_of_philos;
@@ -45,7 +44,7 @@ typedef struct s_philo
 	int		id;
 	int		times_ate;
 	int		fork[2];
-	m_t		meal_time_lock;
+	m_t		meal_lock;
 	time_t				last_meal;
 	t_data				*data;
 }	t_philo;
@@ -57,6 +56,7 @@ void	start(t_data *data);
 void	stop(t_data	*data);
 t_data	*init_data(int ac, char **av);
 t_philo		**init_philos(t_data *data);
+void	init_mutexes(t_data *data);
 void			*life_of_philo(void *data);
 time_t			current_time(void);
 void			philo_sleep(t_data *data, time_t sleep_time);
@@ -67,10 +67,6 @@ int	philo_state(t_data *data);
 int			is_stoped(t_data *data);
 int			is_kill(t_philo *philo);
 void			destroy_mutexes(t_data *data);
-//void	set_sim_stop_flag(t_data *data, int state);
-void	eat_sleep_routine(t_philo *philo);
-void	think_routine(t_philo *philo);
-void	*single(t_philo *philo);
 void	ft_error(t_data *data, char *msg);
 void	message(char	*msg);
 void	ft_free(t_data *data);

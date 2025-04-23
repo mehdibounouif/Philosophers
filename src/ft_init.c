@@ -6,7 +6,7 @@
 /*   By: mbounoui <mbounoui@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 07:47:31 by mbounoui          #+#    #+#             */
-/*   Updated: 2025/04/22 14:18:48 by mbounoui         ###   ########.fr       */
+/*   Updated: 2025/04/23 08:47:49 by mbounoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ t_philo	**init_philos(t_data *data)
 		philos[i] = malloc(sizeof(t_philo) * 1);
 		if (!philos[i])
 			ft_error(data, "Malloc failed!\n");
-		if (pthread_mutex_init(&philos[i]->meal_time_lock, 0))
+		if (pthread_mutex_init(&philos[i]->meal_lock, 0))
 			ft_error(data, "pthread_mutex_init failed!\n");
 		philos[i]->data = data;
 		philos[i]->id = i;
@@ -58,12 +58,10 @@ void	init_mutexes(t_data *data)
 	if (!data->fork_locks)
 		ft_error(data, "pthread_mutex_init failed!\n");
 	i = 0;
-	while (i < data->num_of_philos)
-	{
+	while (i < data->num_of_philos)	
 		if (pthread_mutex_init(&data->fork_locks[i++], NULL))
-			ft_error(data, "pthread_mutex_init failed!\n");
-	}
-	if (pthread_mutex_init(&data->sim_stop_lock, 0))
+			ft_error(data, "pthread_mutex_init failed!\n");	
+	if (pthread_mutex_init(&data->stop_lock, 0))
 		ft_error(data, "pthread_mutex_init failed!\n");
 	if (pthread_mutex_init(&data->write_lock, 0))
 		ft_error(data, "pthread_mutex_init failed!\n");
@@ -85,6 +83,5 @@ t_data	*init_data(int ac, char **av)
 		data->num_of_meals = ft_atoi(av[5]);
 	else 
 		data->num_of_meals = -1;
-	init_mutexes(data);
 	return (data); 
 }
