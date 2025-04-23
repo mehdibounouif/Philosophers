@@ -6,7 +6,7 @@
 /*   By: mbounoui <mbounoui@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 07:47:31 by mbounoui          #+#    #+#             */
-/*   Updated: 2025/04/23 08:47:49 by mbounoui         ###   ########.fr       */
+/*   Updated: 2025/04/23 09:21:33 by mbounoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ t_philo	**init_philos(t_data *data)
 			ft_error(data, "pthread_mutex_init failed!\n");
 		philos[i]->data = data;
 		philos[i]->id = i;
-		philos[i]->times_ate = 0;
+		philos[i]->count_meals = 0;
 		take_forks(philos[i]);
 		i++;
 	}

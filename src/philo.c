@@ -6,7 +6,7 @@
 /*   By: mbounoui <mbounoui@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 07:40:11 by mbounoui          #+#    #+#             */
-/*   Updated: 2025/04/23 09:00:32 by mbounoui         ###   ########.fr       */
+/*   Updated: 2025/04/23 09:17:07 by mbounoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,5 @@ int	main(int c, char **v)
 	init_mutexes(data);	
 	start(data);
 	stop(data);
-	return (EXIT_SUCCESS);
+	return (0);
 }

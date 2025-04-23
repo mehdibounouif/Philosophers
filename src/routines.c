@@ -6,7 +6,7 @@
 /*   By: mbounoui <mbounoui@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 14:12:13 by mbounoui          #+#    #+#             */
-/*   Updated: 2025/04/23 08:49:44 by mbounoui         ###   ########.fr       */
+/*   Updated: 2025/04/23 09:32:11 by mbounoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	sleep_routine(t_philo *philo)
 	if (!is_stoped(philo->data))
 	{
 		pthread_mutex_lock(&philo->meal_lock);
-		philo->times_ate += 1;
+		philo->count_meals += 1;
 		pthread_mutex_unlock(&philo->meal_lock);
 	}
 	write_status(philo, "is sleeping");	
