@@ -6,11 +6,21 @@
 /*   By: mbounoui <mbounoui@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 07:52:13 by mbounoui          #+#    #+#             */
-/*   Updated: 2025/04/23 11:42:57 by mbounoui         ###   ########.fr       */
+/*   Updated: 2025/04/24 14:10:09 by mbounoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
+
+int	ft_strlen(char *s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i])
+		i++;
+	return (i);
+}
 
 int	ft_strcmp(char *s1, char *s2)
 {
@@ -57,7 +67,7 @@ int	ft_atoi(char *s)
 
 void	parss_input(int c, char **v)
 {
-	long				nb;
+	long			nb;
 	int	i;
 
 	i = 1;
@@ -65,7 +75,7 @@ void	parss_input(int c, char **v)
 	{
 		nb = ft_atoi(v[i]);
 		if ((nb <= 0 || nb > INT_MAX) && i != 5)
-			message("");
+			message("0 < 2147483647\n");
 		i++;
 	}
 }

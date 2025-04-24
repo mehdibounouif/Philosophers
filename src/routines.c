@@ -6,11 +6,12 @@
 /*   By: mbounoui <mbounoui@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 14:12:13 by mbounoui          #+#    #+#             */
-/*   Updated: 2025/04/23 11:32:42 by mbounoui         ###   ########.fr       */
+/*   Updated: 2025/04/24 12:02:52 by mbounoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
+#include <pthread.h>
 
 void	eat_routine(t_philo *philo)
 {
@@ -23,20 +24,22 @@ void	eat_routine(t_philo *philo)
 	philo->last_meal = current_time();
 	pthread_mutex_unlock(&philo->meal_lock);
 	philo_sleep(philo->data, philo->data->time_to_eat);
-	pthread_mutex_unlock(&philo->data->fork_locks[philo->fork[1]]);
-	pthread_mutex_unlock(&philo->data->fork_locks[philo->fork[0]]);
-}
-
-void	sleep_routine(t_philo *philo)
-{
 	if (!is_stoped(philo->data))
 	{
 		pthread_mutex_lock(&philo->meal_lock);
 		philo->count_meals += 1;
 		pthread_mutex_unlock(&philo->meal_lock);
 	}
+	pthread_mutex_unlock(&philo->data->fork_locks[philo->fork[1]]);
+	pthread_mutex_unlock(&philo->data->fork_locks[philo->fork[0]]);
+}
+
+void	sleep_routine(t_philo *philo)
+{
+	pthread_mutex_lock(&philo->meal_lock);
 	write_status(philo, "is sleeping");
 	philo_sleep(philo->data, philo->data->time_to_sleep);
+	pthread_mutex_unlock(&philo->meal_lock);
 }
 
 void	think_routine(t_philo *philo)
@@ -49,6 +52,8 @@ void	think_routine(t_philo *philo)
 	hangry = current_time() - philo->last_meal;
 	left_until_death = philo->data->time_to_die - hangry;
 	thinkign_time = (left_until_death - philo->data->time_to_eat);
+	if (philo->id % 2)
+		thinkign_time = (left_until_death - philo->data->time_to_eat) / 2;
 	pthread_mutex_unlock(&philo->meal_lock);
 	if (thinkign_time == 0)
 		thinkign_time = 1;

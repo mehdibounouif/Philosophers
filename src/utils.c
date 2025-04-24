@@ -6,21 +6,11 @@
 /*   By: mbounoui <mbounoui@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 07:45:54 by mbounoui          #+#    #+#             */
-/*   Updated: 2025/04/23 11:41:29 by mbounoui         ###   ########.fr       */
+/*   Updated: 2025/04/24 11:42:21 by mbounoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
-
-int	ft_strlen(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
-}
 
 void	destroy_mutexes(t_data *data)
 {
@@ -63,5 +53,5 @@ void	ft_error(t_data *data, char *msg)
 		ft_free(data);
 	if (msg)
 		message(msg);
-	exit(EXIT_FAILURE);
+	return;
 }
