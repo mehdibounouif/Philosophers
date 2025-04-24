@@ -6,7 +6,7 @@
 /*   By: mbounoui <mbounoui@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 07:52:13 by mbounoui          #+#    #+#             */
-/*   Updated: 2025/04/24 14:10:09 by mbounoui         ###   ########.fr       */
+/*   Updated: 2025/04/24 14:33:41 by mbounoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	ft_atoi(char *s)
 void	parss_input(int c, char **v)
 {
 	long			nb;
-	int	i;
+	int				i;
 
 	i = 1;
 	while (i < c)

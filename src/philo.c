@@ -6,7 +6,7 @@
 /*   By: mbounoui <mbounoui@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 07:40:11 by mbounoui          #+#    #+#             */
-/*   Updated: 2025/04/24 11:45:30 by mbounoui         ###   ########.fr       */
+/*   Updated: 2025/04/24 14:33:14 by mbounoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,11 @@ int	main(int c, char **v)
 	if (c != 5 && c != 6)
 		message("Invalid input!\n");
 	parss_input(c, v);
-	if (!(data = init_data(c, v)))
+	data = init_data(c, v);
+	if (!data)
 		return (1);
-	if (!(data->philos = init_philos(data)))
+	data->philos = init_philos(data);
+	if (!data->philos)
 		return (1);
 	if (!init_mutexes(data))
 		return (1);

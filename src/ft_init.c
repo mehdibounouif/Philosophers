@@ -6,7 +6,7 @@
 /*   By: mbounoui <mbounoui@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 07:47:31 by mbounoui          #+#    #+#             */
-/*   Updated: 2025/04/24 08:11:52 by mbounoui         ###   ########.fr       */
+/*   Updated: 2025/04/24 14:31:43 by mbounoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	take_forks(t_philo *philo)
 t_philo	**init_philos(t_data *data)
 {
 	t_philo	**philos;
-	int	i;
+	int		i;
 
 	i = 0;
 	philos = malloc(sizeof(t_philo *) * data->num_of_philos);

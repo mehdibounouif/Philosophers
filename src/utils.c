@@ -6,7 +6,7 @@
 /*   By: mbounoui <mbounoui@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 07:45:54 by mbounoui          #+#    #+#             */
-/*   Updated: 2025/04/24 11:42:21 by mbounoui         ###   ########.fr       */
+/*   Updated: 2025/04/24 14:32:12 by mbounoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,5 +53,5 @@ void	ft_error(t_data *data, char *msg)
 		ft_free(data);
 	if (msg)
 		message(msg);
-	return;
+	return ;
 }
