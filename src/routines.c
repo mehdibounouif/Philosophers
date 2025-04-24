@@ -6,7 +6,7 @@
 /*   By: mbounoui <mbounoui@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 14:12:13 by mbounoui          #+#    #+#             */
-/*   Updated: 2025/04/24 12:02:52 by mbounoui         ###   ########.fr       */
+/*   Updated: 2025/04/24 18:01:45 by mbounoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,16 +51,10 @@ void	think_routine(t_philo *philo)
 	pthread_mutex_lock(&philo->meal_lock);
 	hangry = current_time() - philo->last_meal;
 	left_until_death = philo->data->time_to_die - hangry;
-	thinkign_time = (left_until_death - philo->data->time_to_eat);
-	if (philo->id % 2)
-		thinkign_time = (left_until_death - philo->data->time_to_eat) / 2;
+	thinkign_time = (left_until_death - philo->data->time_to_eat) / 2;
 	pthread_mutex_unlock(&philo->meal_lock);
-	if (thinkign_time == 0)
-		thinkign_time = 1;
 	if (thinkign_time < 0)
 		thinkign_time = 0;
-	if (thinkign_time > 600)
-		thinkign_time = 200;
 	write_status(philo, "is thinking");
 	philo_sleep(philo->data, thinkign_time);
 }

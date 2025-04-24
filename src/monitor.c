@@ -6,7 +6,7 @@
 /*   By: mbounoui <mbounoui@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 07:46:40 by mbounoui          #+#    #+#             */
-/*   Updated: 2025/04/23 11:36:23 by mbounoui         ###   ########.fr       */
+/*   Updated: 2025/04/24 18:01:12 by mbounoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,7 @@ int	philo_state(t_data *data)
 	eat_enough = 1;
 	i = 0;
 	while (i < data->num_of_philos)
-	{
-		pthread_mutex_lock(&data->philos[i]->meal_lock);
+	{ pthread_mutex_lock(&data->philos[i]->meal_lock);
 		if (is_kill(data->philos[i]))
 			return (1);
 		if (data->num_of_meals != -1)

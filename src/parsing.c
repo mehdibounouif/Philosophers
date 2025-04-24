@@ -6,7 +6,7 @@
 /*   By: mbounoui <mbounoui@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 07:52:13 by mbounoui          #+#    #+#             */
-/*   Updated: 2025/04/24 14:33:41 by mbounoui         ###   ########.fr       */
+/*   Updated: 2025/04/24 17:59:35 by mbounoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,11 @@ int	ft_atoi(char *s)
 	while (is_space(*s))
 		s++;
 	if (*s)
-		message("Wadakhal number m9ad kon thcham\n");
+		return (message("Wadakhal number m9ad kon thcham\n"), -1);
 	return (res * sign);
 }
 
-void	parss_input(int c, char **v)
+int	parss_input(int c, char **v)
 {
 	long			nb;
 	int				i;
@@ -74,8 +74,13 @@ void	parss_input(int c, char **v)
 	while (i < c)
 	{
 		nb = ft_atoi(v[i]);
-		if ((nb <= 0 || nb > INT_MAX) && i != 5)
-			message("0 < 2147483647\n");
+		if (nb == -1)
+			return (0);
+		if (i == 1 && (nb <= 0 || nb > 200))
+		{
+			return (message("number of philosophers {0 <= 200}\n"), 0);
+		}
 		i++;
 	}
+	return (1);
 }

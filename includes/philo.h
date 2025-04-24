@@ -6,7 +6,7 @@
 /*   By: mbounoui <mbounoui@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 07:44:20 by mbounoui          #+#    #+#             */
-/*   Updated: 2025/04/24 14:30:13 by mbounoui         ###   ########.fr       */
+/*   Updated: 2025/04/24 17:55:34 by mbounoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ typedef struct s_philo
 	t_data				*data;
 }	t_philo;
 
-void		parss_input(int c, char **v);
+int			parss_input(int c, char **v);
 int			ft_atoi(char *s);
 int			ft_strcmp(char *s1, char *s2);
 int			is_space(char c);

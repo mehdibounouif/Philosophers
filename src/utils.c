@@ -6,7 +6,7 @@
 /*   By: mbounoui <mbounoui@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 07:45:54 by mbounoui          #+#    #+#             */
-/*   Updated: 2025/04/24 14:32:12 by mbounoui         ###   ########.fr       */
+/*   Updated: 2025/04/24 16:37:13 by mbounoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void	destroy_mutexes(t_data *data)
 void	message(char *msg)
 {
 	write(2, msg, ft_strlen(msg));
-	exit(EXIT_FAILURE);
 }
 
 void	ft_free(t_data *data)
@@ -52,6 +51,6 @@ void	ft_error(t_data *data, char *msg)
 	if (data)
 		ft_free(data);
 	if (msg)
-		message(msg);
+		return (message(msg));
 	return ;
 }
