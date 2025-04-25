@@ -21,17 +21,27 @@ OBJS = $(SRCS:.c=.o)
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) $(FLAGS) $(OBJS) -o $(NAME)
+	@echo "🎉 Linking object files to create the executable: $(NAME) 🚀"
+	@$(CC) $(FLAGS) $(OBJS) -o $(NAME)
+	@echo "✅ Build successful! Executable created: $(NAME)"
 
 %.o: %.c
-	$(CC) $(FLAGS) -o $@ -c $<
+	@echo "🔨 Compiling ..."
+	@$(CC) $(FLAGS) -o $@ -c $<
+	@echo "✅ compiled successfully!"
 
 clean:
-	$(RM) $(OBJS)
+	@echo "🧹 Cleaning up object files ..."
+	@$(RM) $(OBJS)
+	@echo "✅ Clean up complete."
 
 fclean: clean
-	$(RM) $(NAME)
+	@echo "🧹 Cleaning up object files and executable..."
+	@$(RM) $(NAME)
+	@echo "✅ Clean up complete."
 
 re: fclean all
+
+.SECONDARY : $(OBJS)
 
 .PHONY: re clean fclean all
