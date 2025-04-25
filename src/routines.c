@@ -6,12 +6,11 @@
 /*   By: mbounoui <mbounoui@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 14:12:13 by mbounoui          #+#    #+#             */
-/*   Updated: 2025/04/24 18:01:45 by mbounoui         ###   ########.fr       */
+/*   Updated: 2025/04/25 08:58:11 by mbounoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
-#include <pthread.h>
 
 void	eat_routine(t_philo *philo)
 {
@@ -36,10 +35,8 @@ void	eat_routine(t_philo *philo)
 
 void	sleep_routine(t_philo *philo)
 {
-	pthread_mutex_lock(&philo->meal_lock);
 	write_status(philo, "is sleeping");
 	philo_sleep(philo->data, philo->data->time_to_sleep);
-	pthread_mutex_unlock(&philo->meal_lock);
 }
 
 void	think_routine(t_philo *philo)
