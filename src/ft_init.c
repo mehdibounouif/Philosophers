@@ -6,7 +6,7 @@
 /*   By: mbounoui <mbounoui@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 07:47:31 by mbounoui          #+#    #+#             */
-/*   Updated: 2025/04/25 08:58:30 by mbounoui         ###   ########.fr       */
+/*   Updated: 2025/04/28 09:03:18 by mbounoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,26 +27,23 @@ void	take_forks(t_philo *philo)
 	}
 }
 
-t_philo	**init_philos(t_data *data)
+t_philo	*init_philos(t_data *data)
 {
-	t_philo	**philos;
+	t_philo	*philos;
 	int		i;
 
 	i = 0;
-	philos = malloc(sizeof(t_philo *) * data->num_of_philos);
+	philos = malloc(sizeof(t_philo) * data->num_of_philos);
 	if (!philos)
 		return (ft_error(data, "Malloc failed!\n"), NULL);
 	while (i < data->num_of_philos)
 	{
-		philos[i] = malloc(sizeof(t_philo) * 1);
-		if (!philos[i])
-			return (ft_error(data, "Malloc failed!\n"), NULL);
-		if (pthread_mutex_init(&philos[i]->meal_lock, 0))
+		if (pthread_mutex_init(&philos[i].meal_lock, 0))
 			return (ft_error(data, "pthread_mutex_init failed!\n"), NULL);
-		philos[i]->data = data;
-		philos[i]->id = i;
-		philos[i]->count_meals = 0;
-		take_forks(philos[i]);
+		philos[i].data = data;
+		philos[i].id = i;
+		philos[i].count_meals = 0;
+		take_forks(&philos[i]);
 		i++;
 	}
 	return (philos);
@@ -70,13 +67,8 @@ int	init_mutexes(t_data *data)
 	return (1);
 }
 
-t_data	*init_data(int ac, char **av)
+t_data	*init_data(int ac, char **av, t_data *data)
 {
-	t_data	*data;
-
-	data = malloc(sizeof(t_data) * 1);
-	if (!data)
-		return (ft_error(data, "Malloc failed!\n"), NULL);
 	data->num_of_philos = ft_atoi(av[1]);
 	data->time_to_die = ft_atoi(av[2]);
 	data->time_to_eat = ft_atoi(av[3]);

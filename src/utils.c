@@ -6,7 +6,7 @@
 /*   By: mbounoui <mbounoui@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 07:45:54 by mbounoui          #+#    #+#             */
-/*   Updated: 2025/04/24 16:37:13 by mbounoui         ###   ########.fr       */
+/*   Updated: 2025/04/28 09:04:48 by mbounoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,10 @@ void	ft_free(t_data *data)
 
 	i = 0;
 	while (i < data->num_of_philos)
-		pthread_mutex_destroy(&data->philos[i++]->meal_lock);
-	i = 0;
-	while (i < data->num_of_philos)
-		free(data->philos[i++]);
-	free(data->philos);
+		pthread_mutex_destroy(&data->philos[i++].meal_lock);
+	if (data->philos)
+		free(data->philos);
 	destroy_mutexes(data);
-	free(data);
 }
 
 void	ft_error(t_data *data, char *msg)

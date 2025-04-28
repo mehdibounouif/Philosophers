@@ -6,7 +6,7 @@
 /*   By: mbounoui <mbounoui@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 09:14:13 by mbounoui          #+#    #+#             */
-/*   Updated: 2025/04/23 11:10:08 by mbounoui         ###   ########.fr       */
+/*   Updated: 2025/04/28 09:03:51 by mbounoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	stop(t_data	*data)
 	i = 0;
 	while (i < data->num_of_philos)
 	{
-		pthread_join(data->philos[i]->thread, NULL);
+		pthread_join(data->philos[i].thread, NULL);
 		i++;
 	}
 	if (data->num_of_philos > 1)
