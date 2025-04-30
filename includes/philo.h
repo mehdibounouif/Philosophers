@@ -6,7 +6,7 @@
 /*   By: mbounoui <mbounoui@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 07:44:20 by mbounoui          #+#    #+#             */
-/*   Updated: 2025/04/28 09:02:35 by mbounoui         ###   ########.fr       */
+/*   Updated: 2025/04/30 08:46:03 by mbounoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int			start(t_data *data);
 void		stop(t_data	*data);
 void		*life_of_philo(void *data);
 void		*monitor_routine(void *args);
-t_data	*init_data(int ac, char **av, t_data *data);
+t_data		*init_data(int ac, char **av, t_data *data);
 t_philo		*init_philos(t_data *data);
 int			init_mutexes(t_data *data);
 time_t		current_time(void);
